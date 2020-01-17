@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <String.h>
-#include <stdlib.h>
 #include "readCSV.h"
 
 void readCSV(char input[]){
