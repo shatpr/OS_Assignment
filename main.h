@@ -18,7 +18,7 @@ struct node{
 
 struct block{
     int blockNo;
-    struct node **entryNode;
+    struct node *entryNode;
 };
 
 int blockSize;

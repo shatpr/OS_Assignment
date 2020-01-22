@@ -21,11 +21,13 @@ int main(void){
         printf("Type Y to format File System or N to exit\n");
         scanf("%s", &input);
         if(strlen(input) == 1){
-            if(input[0] == 89 || input[0] == 121){
+            if(input[0] == 89 || input[0] == 121) //If user key in Y(89) / y(121)
+            { 
                 //space for format
                 format = 1;
             }  
-            else if(input[0] == 78 || input[0] == 110){
+            else if(input[0] == 78 || input[0] == 110) ////If user key in N(78) / n(110)
+            {
                 exit(0);
             }
             else
@@ -44,28 +46,33 @@ int main(void){
         printf("\nEnter required block size: ");
         scanf("%s", &input);
         blockSize = atoi(input);
-        if(blockSize < 0 || 130%blockSize != 0)
+        if(blockSize < 0 || 130%blockSize != 0) //Ensure that the block can be divisible
             printf("Invalid entry, please enter between 1 - 10");      
     }while(blockSize < 0 || 130%blockSize != 0);
-    noOfBlocks = MAX_BLOCK/blockSize;
+    noOfBlocks = MAX_BLOCK/blockSize; // If is 5 , 26 block is created
 
-    struct block *blocks[noOfBlocks];
+    struct block *blocks; //Create one block
+    blocks = calloc(noOfBlocks, sizeof(char) * MAX_STRING_SIZE); //Create an array to store the block inside
 
-    printf("Test 0");
+    for(i = 0; i < noOfBlocks; i++){
+        blocks[i].entryNode = malloc(sizeof(struct node *) * blockSize);
+    }
+    blocks[1].entryNode[3].index = 1;
     
-    for(i = 0; i < noOfBlocks; i++){
-        blocks[i]->entryNode = malloc(sizeof(struct node *) * blockSize);
-        printf("\nTest 1");
-    }
-    for(i = 0; i < noOfBlocks; i++){
-        for(j =0; j<blockSize; j++){
-            blocks[i]->entryNode[j] = malloc(sizeof(struct node));
-            printf("\nTest 2");
-        }
-    }
+    blocks[1].entryNode[3].data[0] = '1';
+    blocks[1].entryNode[3].data[1] = '0';
+    blocks[1].entryNode[3].data[2] = '1';
 
-    blocks[1]->entryNode[3]->index = 101;
-    printf("%d",blocks[1]->entryNode[3]->index);
+    for(int j = 0; j < noOfBlocks; j++)
+    {
+        printf("Block %d\n", j);
+        printf("Index\n");
+        for(int n = 0; n < blockSize; n++)
+        {
+            printf("%d\t%s\n", n, blocks[j].entryNode[n].data);
+        }
+        printf("---------------\n");
+    }
 
 
 
@@ -90,4 +97,6 @@ int main(void){
     printf("Enter name of .csv file to read from\n");
     scanf("%s", &input);
     readCSV(input);
+
+    free(blocks);
 } 

@@ -10,7 +10,6 @@ void readCSV(char input[]){
         if(count != 0){
             getData(buffer);
         }
-    
     }
 
     fclose(fp);
