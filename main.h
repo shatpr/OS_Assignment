@@ -16,12 +16,12 @@ struct node{
     //struct block blockData;
 };
 
-struct block{
-    int blockNo;
-    struct node *entryNode;
-};
+// struct block{
+//     int blockNo;
+//     struct node *entryNode;
+// };
 
 int blockSize;
-int noOfBlocks;
+float noOfBlocks;
 char CSV_Data[NO_OF_STRING][MAX_STRING_SIZE];
 #endif
