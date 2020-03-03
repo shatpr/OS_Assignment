@@ -8,7 +8,7 @@ Description:
 -----------------------------------------------------------------------------------------------*/
 
 #include "main.h"
-#include "readCSV.c"
+#include "contiguous.c"
 
 int main(void)
 {
@@ -80,38 +80,35 @@ int main(void)
     }
 
     //File system choice
-    // do
-    // {
-    //     printf("\nEnter choice for file system: \n1: Contiguous Allocation\n2: Linked Allocation\n3: Indexed Allocation\n4: Custom Allocation\n");
-    //     scanf("%s", &input);
-    //     choice = atoi(input);
-    //     if (choice == 1)
-    //     {
-    //         //Space for Contiguous
-    //     }
-    //     else if (choice == 2)
-    //     {
+    do
+    {
+        printf("\nEnter choice for file system: \n1: Contiguous Allocation\n2: Linked Allocation\n3: Indexed Allocation\n4: Custom Allocation\n");
+        scanf("%s", &input);
+        choice = atoi(input);
+        if (choice == 1)
+        {
+            //Space for Contiguous
+            contiguous();
+        }
+        else if (choice == 2)
+        {
 
-    //         //Space for Linked
-    //     }
-    //     else if (choice == 3)
-    //     {
-    //         //  indexed();
+            //Space for Linked
+        }
+        else if (choice == 3)
+        {
+            //  indexed();
 
-    //     }
-    //     else if (choice == 4)
-    //     {
-    //         //Space for custom
-    //     }
-    //     else
-    //         printf("Invalid choice, please enter between 1 - 4");
-    // } while (choice <= 0 || choice > 4);
-    //linked_allocation();
+        }
+        else if (choice == 4)
+        {
+            //Space for custom
+        }
+        else
+            printf("Invalid choice, please enter between 1 - 4");
+    } while (choice <= 0 || choice > 4);
 
-    //Read CSV File
-    printf("Enter name of .csv file to read from\n");
-    scanf("%s", &input);
-    readCSV(input);
+    while(contiguous());
 
-    return 1;
+    return EXIT_SUCCESS;
 }

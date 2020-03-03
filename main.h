@@ -10,12 +10,14 @@
 #define MAX_STRING_SIZE 100
 #define MAX_BLOCK 130
 #define NO_OF_VCB 50
+#define FALSE 0
+#define TRUE !(FALSE)
 
 struct node
 {
     int index;
     int blockNo;
-    int data; //Change because is forever to number
+    int data; 
     int filename;
 } node[MAX_BLOCK];
 
