@@ -8,7 +8,7 @@ Description:
 -----------------------------------------------------------------------------------------------*/
 
 #include "main.h"
-#include "contiguous.c"
+#include "readCSV.c"
 
 int main(void)
 {
@@ -50,132 +50,68 @@ int main(void)
     {
         printf("\nEnter required block size: ");
         scanf("%s", &input);
+        //Convert the input to become a int
         blockSize = atoi(input);
     } while (blockSize < 0 || blockSize > 130);
-    noOfBlocks = (float)MAX_BLOCK / blockSize; // If is 5 , 26 block is created
 
-    noOfBlocks = ((noOfBlocks - (int)noOfBlocks) != 0 ) ? noOfBlocks - 1 : noOfBlocks;
+    noOfBlocks = MAX_BLOCK / blockSize;
+    //If the max block is not divisible by the blocksize, the no of block will be -1
+    noOfBlocks = (MAX_BLOCK % blockSize) ? noOfBlocks - 1 : noOfBlocks;
 
-    
     printf("Block\t\tIndex\tFile Data\n");
-
     while (counter < MAX_BLOCK)
     {
         for (j = 0; j < blockSize; j++)
         {
-            node[j].blockNo = blockIndex;
-            node[j].index = counter;
-            (counter == MAX_BLOCK) ? j = blockSize : (noOfBlocks < blockIndex) ? printf("Unassigned\t%d\n", node[j].index): printf("%d\t\t%d\n", node[j].blockNo, node[j].index); 
+            //If the no of block size is more than the block index
+            //Block index will become -1, else it will be the current counter value
+            node[counter].blockNo = (noOfBlocks < blockIndex) ? -1 : blockIndex;
+            node[counter].index = counter;
+            node[counter].data = -1;
+            node[counter].filename = 0;
+
+            //(counter == MAX_BLOCK)
+            //If the condition is true, j = block size
+            //Else noOfBlocks < blockIndex
+            (counter == MAX_BLOCK) ? j = blockSize : printf("%d\t\t%d\t%d\n", node[counter].blockNo, node[counter].index, node[counter].data);
             counter++;
         }
         blockIndex++;
     }
 
-<<<<<<< Updated upstream
-    //Block size
-    // do{
-    //     printf("\nEnter required block size: ");
-    //     scanf("%s", &input);
-    //     blockSize = atoi(input);
-    //     if(blockSize < 0 || 130%blockSize != 0) //Ensure that the block can be divisible
-    //         printf("Invalid entry, please enter between 1 - 10");
-    // }while(blockSize < 0 || 130%blockSize != 0);
-    //noOfBlocks = MAX_BLOCK/blockSize; // If is 5 , 26 block is created
-
-    // struct block *blocks; //Create one block
-    // blocks = calloc(noOfBlocks, sizeof(char) * MAX_STRING_SIZE); //Create an array to store the block inside
-
-    // for(i = 0; i < noOfBlocks; i++){
-    //     blocks[i].entryNode = malloc(sizeof(struct node *) * blockSize);
-    //     for(int j = 0; j < 4; j++)
-    //     {
-    //       blocks[i].entryNode[i].data[j] = '0';
-    //     }
-
-    // }
-    // blocks[1].entryNode[3].index = 1;
-
-    // blocks[1].entryNode[3].data[0] = '1';
-    // blocks[1].entryNode[3].data[1] = '0';
-    // blocks[1].entryNode[3].data[2] = '1';
-
-    // for(int j = 0; j < noOfBlocks; j++)
-    // {
-    //     printf("Block %d\n", j);
-    //     printf("Index\n");
-    //     for(int n = 0; n < blockSize; n++)
-    //     {
-    //         printf("%d\t%s\n", n, blocks[j].entryNode[n].data);
-    //     }
-    //     printf("---------------\n");
-    // }
-
     //File system choice
-    do
-    {
-        printf("\nEnter choice for file system: \n1: Contiguous Allocation\n2: Linked Allocation\n3: Indexed Allocation\n4: Custom Allocation\n");
-        scanf("%s", &input);
-        choice = atoi(input);
-        if (choice == 1)
-        {
-            //Space for Contiguous
-        }
-        else if (choice == 2)
-        {
-            //Space for Linked
-        }
-        else if (choice == 3)
-        {
-            //  indexed();
-        }
-        else if (choice == 4)
-        {
-            //Space for custom
-        }
-        else
-            printf("Invalid choice, please enter between 1 - 4");
-    } while (choice <= 0 || choice > 4);
+    // do
+    // {
+    //     printf("\nEnter choice for file system: \n1: Contiguous Allocation\n2: Linked Allocation\n3: Indexed Allocation\n4: Custom Allocation\n");
+    //     scanf("%s", &input);
+    //     choice = atoi(input);
+    //     if (choice == 1)
+    //     {
+    //         //Space for Contiguous
+    //     }
+    //     else if (choice == 2)
+    //     {
+
+    //         //Space for Linked
+    //     }
+    //     else if (choice == 3)
+    //     {
+    //         //  indexed();
+
+    //     }
+    //     else if (choice == 4)
+    //     {
+    //         //Space for custom
+    //     }
+    //     else
+    //         printf("Invalid choice, please enter between 1 - 4");
+    // } while (choice <= 0 || choice > 4);
+    //linked_allocation();
 
     //Read CSV File
     printf("Enter name of .csv file to read from\n");
     scanf("%s", &input);
     readCSV(input);
-}
-=======
-    //File system choice
-     do
-     {
-         printf("\nEnter choice for file system: \n1: Contiguous Allocation\n2: Linked Allocation\n3: Indexed Allocation\n4: Custom Allocation\n");
-         scanf("%s", &input);
-         choice = atoi(input);
-         if (choice == 1)
-         {
-             //Space for Contiguous
-             contiguous();
-         }
-         else if (choice == 2)
-         {
-
-             //Space for Linked
-         }
-         else if (choice == 3)
-         {
-             //  indexed();
-
-         }
-         else if (choice == 4)
-         {
-             //Space for custom
-         }
-         else
-             printf("Invalid choice, please enter between 1 - 4");
-     } while (choice <= 0 || choice > 4);
-
-    //Read CSV File
-    //printf("Enter name of .csv file to read from\n");
-    //scanf("%s", &input);
-    //readCSV(input);
 
     return 1;
 }
->>>>>>> Stashed changes
