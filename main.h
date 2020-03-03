@@ -16,6 +16,11 @@ struct node{
 }node[MAX_BLOCK];
 
 int blockSize;
+<<<<<<< Updated upstream
 float noOfBlocks;
 char CSV_Data[NO_OF_STRING][MAX_STRING_SIZE];
+=======
+int noOfBlocks;
+int current_file_number;
+>>>>>>> Stashed changes
 #endif
