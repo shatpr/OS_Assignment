@@ -8,7 +8,16 @@ Description:
 -----------------------------------------------------------------------------------------------*/
 
 #include "main.h"
+<<<<<<< Updated upstream
 #include "contiguous.c"
+=======
+#include "readCSV.c"
+#include "indexed.c"
+#include "indexed.h"
+#include "cont.c"
+#include "vcb.c"
+
+>>>>>>> Stashed changes
 
 int main(void)
 {
@@ -18,7 +27,7 @@ int main(void)
     unsigned int choice = 0;
     unsigned int format = 0;
     int counter = 0, blockIndex = 0;
-
+    void indexed();
     do
     {
         printf("Type Y to format File System or N to exit\n");
@@ -50,35 +59,30 @@ int main(void)
     {
         printf("\nEnter required block size: ");
         scanf("%s", &input);
-        //Convert the input to become a int
         blockSize = atoi(input);
     } while (blockSize < 0 || blockSize > 130);
+    noOfBlocks = (float)MAX_BLOCK / blockSize; // If is 6 , 20 block is created
 
-    noOfBlocks = MAX_BLOCK / blockSize;
-    //If the max block is not divisible by the blocksize, the no of block will be -1
-    noOfBlocks = (MAX_BLOCK % blockSize) ? noOfBlocks - 1 : noOfBlocks;
+    noOfBlocks = ((noOfBlocks - (int)noOfBlocks) != 0) ? noOfBlocks - 1 : noOfBlocks; // Once divided, if it is not a whole number, the noOfBlocks will -1.
 
     printf("Block\t\tIndex\tFile Data\n");
-    while (counter < MAX_BLOCK)
+
+    while (counter < MAX_BLOCK) //Counter 0 to 130
     {
-        for (j = 0; j < blockSize; j++)
-        {
-            //If the no of block size is more than the block index
-            //Block index will become -1, else it will be the current counter value
-            node[counter].blockNo = (noOfBlocks < blockIndex) ? -1 : blockIndex;
-            node[counter].index = counter;
-            node[counter].data = -1;
-            node[counter].filename = 0;
+        // for (j = 0; j < blockSize; j++) //0 to input blockSize, e.g. 0 to 5
+        // {
+        //     node[j].index = counter;
+        //     node[j].blockNo = blockIndex; //Assign e.g. Node 0 to 5 with block Index 0 for first iteration, and 6 to 11 with block Index 1 and so on.
 
-            //(counter == MAX_BLOCK)
-            //If the condition is true, j = block size
-            //Else noOfBlocks < blockIndex
-            (counter == MAX_BLOCK) ? j = blockSize : printf("%d\t\t%d\t%d\n", node[counter].blockNo, node[counter].index, node[counter].data);
-            counter++;
-        }
-        blockIndex++;
-    }
+        //     //If counter == 130 entries, j = blockSize to stop the for loop, if not then another if statement.
+        //     // If noOfBlocks less than blockIndex e.g. noOfBlocks is 20, blockIndex will continue over 20, will print "unassigned" and Index. If false, will print Block No, and Index.
+        //     (counter == MAX_BLOCK) ? j = blockSize : (noOfBlocks < blockIndex) ? printf("Unassigned\t%d\n", node[j].index): printf("%d\t\t%d\n", node[j].blockNo, node[j].index);
+        //     counter++;
+        // }
+        // blockIndex++; //Keep iterating +1 so can use in for loop to assign.
+        node[counter].index = counter;
 
+<<<<<<< Updated upstream
     //File system choice
     do
     {
@@ -107,8 +111,52 @@ int main(void)
         else
             printf("Invalid choice, please enter between 1 - 4");
     } while (choice <= 0 || choice > 4);
+=======
+        if (node[counter].index % blockSize - 1 == 0 && node[counter].index != 0 && node[counter].index != 1)
+        {
+            blockIndex++;
+        }
+
+        node[counter].blockNo = blockIndex;
+
+        printf("%d\t\t%d\t\t%d\n", node[counter].blockNo, node[counter].index, blockIndex);
+        counter++;
+    }
+>>>>>>> Stashed changes
 
     while(contiguous());
 
+<<<<<<< Updated upstream
     return EXIT_SUCCESS;
+=======
+    do
+    {
+        printf("\nEnter choice for file system: \n1: Contiguous Allocation\n2: Linked Allocation\n3: Indexed Allocation\n4: Custom Allocation\n");
+        scanf("%s", &input);
+        choice = atoi(input);
+        if (choice == 1)
+        {
+            //Space for Contiguous
+        }
+        else if (choice == 2)
+        {
+            //Space for Linked
+        }
+        else if (choice == 3)
+        {
+            //indexed();
+        }
+        else if (choice == 4)
+        {
+            freespace(node,noOfBlocks);
+            for(int i=0;i<noOfBlocks;++i){
+                printf("%c",freeblocks[i]);
+            }
+            
+            //Space for custom
+        }
+        else
+            printf("Invalid choice, please enter between 1 - 4");
+    } while (choice <= 0 || choice > 4);
+>>>>>>> Stashed changes
 }
